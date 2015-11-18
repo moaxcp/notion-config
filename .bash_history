@@ -1,0 +1,3 @@
+ls
+vagrant reload
+exit
