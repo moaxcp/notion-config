@@ -1,3 +1,0 @@
-ls
-vagrant reload
-exit
