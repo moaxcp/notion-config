@@ -14,12 +14,12 @@ defbindings("WTiling", {
     kpress(META.."Down", "ioncore.goto_next(_sub, 'down', {no_ascend=_})"),
 
     bdoc("Split current frame vertically."),
-    kpress(META.."\|", "WTiling.split_at(_, _sub, 'bottom', true)"),
+    kpress(META.."minus", "WTiling.split_at(_, _sub, 'bottom', true)"),
     bdoc("Split current frame horizontally."),
-    kpress(META.."\-", "WTiling.split_at(_, _sub, 'right', true)"),
+    kpress(META.."Shift+backslash", "WTiling.split_at(_, _sub, 'right', true)"),
         
     bdoc("Destroy current frame."),
-    kpress("+", "WTiling.unsplit_at(_, _sub)"),
+    kpress(META.."Shift+equal", "WTiling.unsplit_at(_, _sub)"),
 })
 
 -- Frame bindings.
