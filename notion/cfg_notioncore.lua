@@ -20,55 +20,64 @@
 -- modifier to some of the F-key bindings.
 
 defbindings("WScreen", {
-    bdoc("Switch to n:th object (workspace, full screen client window) "..
+    submap(META.."J", {
+        bdoc("Switch to n:th object (workspace, full screen client window) "..
          "within current screen."),
-    kpress(META.."1", "WScreen.switch_nth(_, 0)"),
-    kpress(META.."2", "WScreen.switch_nth(_, 1)"),
-    kpress(META.."3", "WScreen.switch_nth(_, 2)"),
-    kpress(META.."4", "WScreen.switch_nth(_, 3)"),
-    kpress(META.."5", "WScreen.switch_nth(_, 4)"),
-    kpress(META.."6", "WScreen.switch_nth(_, 5)"),
-    kpress(META.."7", "WScreen.switch_nth(_, 6)"),
-    kpress(META.."8", "WScreen.switch_nth(_, 7)"),
-    kpress(META.."9", "WScreen.switch_nth(_, 8)"),
-    kpress(META.."0", "WScreen.switch_nth(_, 9)"),
+        kpress("1", "WScreen.switch_nth(_, 0)"),
+        kpress("2", "WScreen.switch_nth(_, 1)"),
+        kpress("3", "WScreen.switch_nth(_, 2)"),
+        kpress("4", "WScreen.switch_nth(_, 3)"),
+        kpress("5", "WScreen.switch_nth(_, 4)"),
+        kpress("6", "WScreen.switch_nth(_, 5)"),
+        kpress("7", "WScreen.switch_nth(_, 6)"),
+        kpress("8", "WScreen.switch_nth(_, 7)"),
+        kpress("9", "WScreen.switch_nth(_, 8)"),
+        kpress("0", "WScreen.switch_nth(_, 9)"),
+    }),
+    bdoc("Switch to n:th object (workspace, full screen client window) "..
+      "within current screen."),
+    kpress(META.."Shift+1", "WScreen.switch_nth(_, 0)"),
+    kpress(META.."Shift+2", "WScreen.switch_nth(_, 1)"),
+    kpress(META.."Shift+3", "WScreen.switch_nth(_, 2)"),
+    kpress(META.."Shift+4", "WScreen.switch_nth(_, 3)"),
+    kpress(META.."Shift+5", "WScreen.switch_nth(_, 4)"),
+    kpress(META.."Shift+6", "WScreen.switch_nth(_, 5)"),
+    kpress(META.."Shift+7", "WScreen.switch_nth(_, 6)"),
+    kpress(META.."Shift+8", "WScreen.switch_nth(_, 7)"),
+    kpress(META.."Shift+9", "WScreen.switch_nth(_, 8)"),
+    kpress(META.."Shift+0", "WScreen.switch_nth(_, 9)"),
 
     bdoc("Switch to next/previous object within current screen."),
-    kpress(META.."comma", "WScreen.switch_prev(_)"),
-    kpress(META.."period", "WScreen.switch_next(_)"),
+    kpress(META.."K", "WScreen.switch_prev(_)"),
+    kpress(META.."L", "WScreen.switch_next(_)"),
 
-    submap(META.."K", {
-        bdoc("Go to first region demanding attention or previously active one."),
-        kpress("K", "mod_menu.grabmenu(_, _sub, 'focuslist')"),
-        -- Alternative without (cyclable) menu
-        --kpress("K", "ioncore.goto_activity() or ioncore.goto_previous()"),
+    bdoc("Clear all tags."),
+    kpress(META.."N", "ioncore.tagged_clear()"),
 
-        --bdoc("Go to previous active object."),
-        --kpress("K", "ioncore.goto_previous()"),
+    bdoc("Go to first region demanding attention or previously active one."),
+    kpress(META.."V", "mod_menu.grabmenu(_, _sub, 'focuslist')"),
 
-        --bdoc("Go to first object on activity/urgency list."),
-        --kpress("I", "ioncore.goto_activity()"),
-
-        bdoc("Clear all tags."),
-        kpress("T", "ioncore.tagged_clear()"),
+    submap(META.."U", {
+        bdoc("Go to n:th screen on multihead setup."),
+        kpress("1", "ioncore.goto_nth_screen(0)"),
+        kpress("2", "ioncore.goto_nth_screen(1)"),
+        kpress("3", "ioncore.goto_nth_screen(2)"),
+	kpress("4", "ioncore.goto_nth_screen(3)"),
+	kpress("5", "ioncore.goto_nth_screen(4)"),
+	kpress("6", "ioncore.goto_nth_screen(5)"),
+	kpress("7", "ioncore.goto_nth_screen(6)"),
+	kpress("8", "ioncore.goto_nth_screen(7)"),
+	kpress("9", "ioncore.goto_nth_screen(8)"),
+	kpress("0", "ioncore.goto_nth_screen(9)"),
     }),
-
-    bdoc("Go to n:th screen on multihead setup."),
-    kpress(META.."Shift+1", "ioncore.goto_nth_screen(0)"),
-    kpress(META.."Q", "ioncore.goto_nth_screen(0)"),
-    kpress(META.."Shift+2", "ioncore.goto_nth_screen(1)"),
-    kpress(META.."W", "ioncore.goto_nth_screen(1)"),
-    kpress(META.."Shift+3", "ioncore.goto_nth_screen(2)"),
-    kpress(META.."E", "ioncore.goto_nth_screen(2)"),
 
     bdoc("Go to next/previous screen on multihead setup."),
     kpress(META.."Shift+comma", "ioncore.goto_prev_screen()"),
     kpress(META.."I", "ioncore.goto_prev_screen()"),
     kpress(META.."O", "ioncore.goto_next_screen()"),
-    kpress(META.."grave", "ioncore.goto_next_screen()"),
 
     bdoc("Create a new workspace of chosen default type."),
-    kpress(META.."F9", "ioncore.create_ws(_)"),
+    kpress(META.."semicolon", "ioncore.create_ws(_)"),
 
     bdoc("Display the main menu."),
     kpress(ALTMETA.."F12", "mod_query.query_menu(_, _sub, 'mainmenu', 'Main menu:')"),
@@ -104,18 +113,14 @@ defbindings("WScreen", {
 -- These bindings affect client windows directly.
 
 defbindings("WClientWin", {
-    submap(META.."K", {
-       bdoc("Nudge the client window. This might help with some "..
-         "programs' resizing problems."),
-       kpress_wait(META.."L", "WClientWin.nudge(_)"),
-
-       bdoc("Kill client owning the client window."),
-       kpress("C", "WClientWin.kill(_)"),
-
-       bdoc("Send next key press to the client window. "..
-            "Some programs may not allow this by default."),
-       kpress("Q", "WClientWin.quote_next(_)"),
-    }),
+    bdoc("Nudge the client window. This might help with some "..
+      "programs' resizing problems."),
+    kpress_wait(META.."Z", "WClientWin.nudge(_)"),
+    bdoc("Kill client owning the client window."),
+    kpress(META.."X", "WClientWin.kill(_)"),
+    bdoc("Send next key press to the client window. "..
+         "Some programs may not allow this by default."),
+    kpress(META.."Q", "WClientWin.quote_next(_)"),
 })
 
 
@@ -140,55 +145,36 @@ defbindings("WMPlex", {
 -- Frames for transient windows ignore this bindmap
 defbindings("WMPlex.toplevel", {
     bdoc("Toggle tag of current object."),
-    kpress(META.."T", "WRegion.set_tagged(_sub, 'toggle')", "_sub:non-nil"),
+    kpress(META.."B", "WRegion.set_tagged(_sub, 'toggle')", "_sub:non-nil"),
 
     bdoc("Lock screen"),
     kpress(META.."L", "notioncore.exec_on(_, notioncore.lookup_script('notion-lock'))"),
 
-    bdoc("Query for manual page to be displayed."),
-    kpress(ALTMETA.."F1", "mod_query.query_man(_, ':man')"),
-
-    bdoc("Show the Notion manual page."),
-    kpress(META.."F1", "ioncore.exec_on(_, ':man notion')"),
-
     bdoc("Run a terminal emulator."),
-    kpress(ALTMETA.."F2", "mod_query.exec_on_merr(_, XTERM or 'xterm')"),
+    kpress(META.."Shift+X", "mod_query.exec_on_merr(_, XTERM or 'xterm')"),
 
     bdoc("Query for command line to execute."),
-    kpress(ALTMETA.."F3", "mod_query.query_exec(_)"),
+    kpress(META.."Shift+C", "mod_query.query_exec(_)"),
 
     bdoc("Query for Lua code to execute."),
-    kpress(META.."F3", "mod_query.query_lua(_)"),
-
-    bdoc("Query for host to connect to with SSH."),
-    kpress(ALTMETA.."F4", "mod_query.query_ssh(_, ':ssh')"),
-
-    bdoc("Query for file to edit."),
-    kpress(ALTMETA.."F5",
-           "mod_query.query_editfile(_, 'run-mailcap --action=edit')"),
-
-    bdoc("Query for file to view."),
-    kpress(ALTMETA.."F6",
-           "mod_query.query_runfile(_, 'run-mailcap --action=view')"),
+    kpress(META.."bracketright", "mod_query.query_lua(_)"),
 
     bdoc("Query for workspace to go to or create a new one."),
-    kpress(ALTMETA.."F9", "mod_query.query_workspace(_)"),
+    kpress(META.."apostrophe", "mod_query.query_workspace(_)"),
 
     bdoc("Query for a client window to go to."),
-    kpress(META.."G", "mod_query.query_gotoclient(_)"),
+    kpress(META.."Shift+slash", "mod_query.query_gotoclient(_)"),
 
     bdoc("Display context menu."),
     --kpress(META.."M", "mod_menu.menu(_, _sub, 'ctxmenu')"),
-    kpress(META.."M", "mod_query.query_menu(_, _sub, 'ctxmenu', 'Context menu:')"),
+    kpress(META.."space", "mod_query.query_menu(_, _sub, 'ctxmenu', 'Context menu:')"),
 
-    submap(META.."K", {
-        bdoc("Detach (float) or reattach an object to its previous location."),
-        -- By using _chld instead of _sub, we can detach/reattach queries
-        -- attached to a group. The detach code checks if the parameter
-        -- (_chld) is a group 'bottom' and detaches the whole group in that
-        -- case.
-        kpress("D", "ioncore.detach(_chld, 'toggle')", "_chld:non-nil"),
-    }),
+    bdoc("Detach (float) or reattach an object to its previous location."),
+    -- By using _chld instead of _sub, we can detach/reattach queries
+    -- attached to a group. The detach code checks if the parameter
+    -- (_chld) is a group 'bottom' and detaches the whole group in that
+    -- case.
+    kpress(META.."D", "ioncore.detach(_chld, 'toggle')", "_chld:non-nil"),
 })
 
 
@@ -198,11 +184,6 @@ defbindings("WMPlex.toplevel", {
 -- frame bindings are found in some modules' configuration files.
 
 defbindings("WFrame", {
-    submap(META.."K", {
-        bdoc("Maximize the frame horizontally/vertically."),
-        kpress("H", "WFrame.maximize_horiz(_)"),
-        kpress("V", "WFrame.maximize_vert(_)"),
-    }),
 
     bdoc("Display context menu."),
     mpress("Button3", "mod_menu.pmenu(_, _sub, 'ctxmenu')"),
@@ -234,39 +215,34 @@ defbindings("WFrame", {
 
 defbindings("WFrame.toplevel", {
     bdoc("Query for a client window to attach."),
-    kpress(META.."A", "mod_query.query_attachclient(_)"),
+    kpress(META.."slash", "mod_query.query_attachclient(_)"),
 
-    submap(META.."K", {
-        -- Display tab numbers when modifiers are released
-        submap_wait("ioncore.tabnum.show(_)"),
+    -- Display tab numbers when modifiers are released
+    -- submap_wait("ioncore.tabnum.show(_)"),
 
-        bdoc("Switch to n:th object within the frame."),
-        kpress("1", "WFrame.switch_nth(_, 0)"),
-        kpress("2", "WFrame.switch_nth(_, 1)"),
-        kpress("3", "WFrame.switch_nth(_, 2)"),
-        kpress("4", "WFrame.switch_nth(_, 3)"),
-        kpress("5", "WFrame.switch_nth(_, 4)"),
-        kpress("6", "WFrame.switch_nth(_, 5)"),
-        kpress("7", "WFrame.switch_nth(_, 6)"),
-        kpress("8", "WFrame.switch_nth(_, 7)"),
-        kpress("9", "WFrame.switch_nth(_, 8)"),
-        kpress("0", "WFrame.switch_nth(_, 9)"),
+    bdoc("Switch to n:th object within the frame."),
+    kpress(META.."1", "WFrame.switch_nth(_, 0)"),
+    kpress(META.."2", "WFrame.switch_nth(_, 1)"),
+    kpress(META.."3", "WFrame.switch_nth(_, 2)"),
+    kpress(META.."4", "WFrame.switch_nth(_, 3)"),
+    kpress(META.."5", "WFrame.switch_nth(_, 4)"),
+    kpress(META.."6", "WFrame.switch_nth(_, 5)"),
+    kpress(META.."7", "WFrame.switch_nth(_, 6)"),
+    kpress(META.."8", "WFrame.switch_nth(_, 7)"),
+    kpress(META.."9", "WFrame.switch_nth(_, 8)"),
+    kpress(META.."0", "WFrame.switch_nth(_, 9)"),
 
-        bdoc("Switch to next/previous object within the frame."),
-        kpress("N", "WFrame.switch_next(_)"),
-        kpress("P", "WFrame.switch_prev(_)"),
+    bdoc("Switch to next/previous object within the frame."),
+    kpress(META.."comma", "WFrame.switch_next(_)"),
+    kpress(META.."period", "WFrame.switch_prev(_)"),
 
-        bdoc("Move current object within the frame left/right."),
-        kpress("comma", "WFrame.dec_index(_, _sub)", "_sub:non-nil"),
-        kpress("period", "WFrame.inc_index(_, _sub)", "_sub:non-nil"),
+    bdoc("Move current object within the frame left/right."),
+    kpress(META.."Shift+comma", "WFrame.dec_index(_, _sub)", "_sub:non-nil"),
+    kpress(META.."Shift+period", "WFrame.inc_index(_, _sub)", "_sub:non-nil"),
 
-        bdoc("Maximize the frame horizontally/vertically."),
-        kpress("H", "WFrame.maximize_horiz(_)"),
-        kpress("V", "WFrame.maximize_vert(_)"),
 
-        bdoc("Attach tagged objects to this frame."),
-        kpress("A", "ioncore.tagged_attach(_)"),
-    }),
+    bdoc("Attach tagged objects to this frame."),
+    kpress(META.."M", "ioncore.tagged_attach(_)"),
 })
 
 -- Bindings for floating frames
