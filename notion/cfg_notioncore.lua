@@ -189,7 +189,7 @@ defbindings("WFrame", {
     mpress("Button3", "mod_menu.pmenu(_, _sub, 'ctxmenu')"),
 
     bdoc("Begin move/resize mode."),
-    kpress(META.."R", "WFrame.begin_kbresize(_)"),
+    kpress(META.."H", "WFrame.begin_kbresize(_)"),
 
     bdoc("Switch the frame to display the object indicated by the tab."),
     mclick("Button1@tab", "WFrame.p_switch_tab(_)"),
