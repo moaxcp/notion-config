@@ -36,7 +36,7 @@ ioncore.set{
     --kbresize_delay=1500,
 
     -- Opaque resize?
-    --opaque_resize=false,
+    opaque_resize=true,
 
     -- Movement commands warp the pointer to frames instead of just
     -- changing focus. Enabled by default.
@@ -95,7 +95,7 @@ ioncore.set{
     -- screen when a new workspace is selected. This indicator stays active for
     -- only as long as indicated by this variable (in ms). Timeout values <=0
     -- disable the indicator altogether. This is disabled by default.
-    --workspace_indicator_timeout=0,
+    workspace_indicator_timeout=5000,
 }
 
 -- Load default settings. The file cfg_defaults loads all the files
